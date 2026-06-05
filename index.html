@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Best Photo Contest – Helping Hands for Paws</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #fdf6ee;
+      --warm:     #f9ede0;
+      --amber:    #e8854a;
+      --amber-dk: #c96730;
+      --teal:     #3d8c8c;
+      --teal-lt:  #5ab0b0;
+      --teal-dk:  #2a6060;
+      --brown:    #5c3d2e;
+      --text:     #3a2a1e;
+      --muted:    #7a6050;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='4' height='4' fill='none'/%3E%3Ccircle cx='1' cy='1' r='0.6' fill='%23c9a882' opacity='0.18'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: linear-gradient(145deg, #2a6060 0%, #3d8c8c 40%, #4aa0a0 70%, #e8854a 130%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 80px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(232,133,74,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(255,255,255,0.08) 0%, transparent 50%);
+    }
+
+    /* Paw prints decoration */
+    .paw-bg {
+      position: absolute; inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .paw-bg span {
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.08;
+      animation: drift 20s linear infinite;
+    }
+    .paw-bg span:nth-child(1)  { left:  5%; top: 10%; animation-delay:  0s; font-size: 1.5rem; }
+    .paw-bg span:nth-child(2)  { left: 15%; top: 70%; animation-delay:  4s; font-size: 2.5rem; }
+    .paw-bg span:nth-child(3)  { left: 30%; top: 20%; animation-delay:  8s; font-size: 1.2rem; }
+    .paw-bg span:nth-child(4)  { left: 55%; top: 80%; animation-delay:  2s; font-size: 2rem;   }
+    .paw-bg span:nth-child(5)  { left: 70%; top: 15%; animation-delay:  6s; font-size: 1.8rem; }
+    .paw-bg span:nth-child(6)  { left: 85%; top: 60%; animation-delay: 10s; font-size: 1.4rem; }
+    .paw-bg span:nth-child(7)  { left: 90%; top: 30%; animation-delay:  3s; font-size: 2.2rem; }
+    .paw-bg span:nth-child(8)  { left: 42%; top: 45%; animation-delay:  7s; font-size: 1.6rem; }
+
+    @keyframes drift {
+      0%   { transform: translateY(0) rotate(0deg);   opacity: 0.08; }
+      50%  { transform: translateY(-30px) rotate(15deg); opacity: 0.12; }
+      100% { transform: translateY(0) rotate(0deg);   opacity: 0.08; }
+    }
+
+    .hero-badge {
+      position: relative;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      display: inline-block;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 9vw, 6.5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: #ffd4a8;
+    }
+
+    .hero-sub {
+      position: relative;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: rgba(255,255,255,0.88);
+      font-weight: 600;
+      margin: 18px 0 36px;
+      max-width: 520px;
+      line-height: 1.5;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-cta {
+      position: relative;
+      display: inline-block;
+      background: var(--amber);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      padding: 16px 42px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(232,133,74,0.5), 0 2px 8px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+    .hero-cta:hover {
+      background: var(--amber-dk);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(232,133,74,0.55), 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: fadeUp 1s 0.8s ease both;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.35);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.35; transform: scaleY(1); }
+      50%       { opacity: 0.7;  transform: scaleY(0.6); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTION WRAPPER ── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── TIMELINE STRIP ── */
+    .timeline-strip {
+      background: var(--teal-dk);
+      padding: 28px 24px;
+      overflow: hidden;
+    }
+    .timeline-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tl-item {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 24px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .tl-item:last-child { border-right: none; }
+    .tl-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+    .tl-label {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 3px;
+    }
+    .tl-date {
+      color: #fff;
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    /* ── CONTEST SECTION ── */
+    .contest-section {
+      padding: 90px 24px 80px;
+      background: var(--cream);
+    }
+
+    .section-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      color: var(--brown);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .section-intro {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.7;
+      margin-bottom: 52px;
+    }
+
+    /* Category cards */
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .cat-card {
+      background: var(--warm);
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--amber), var(--teal-lt));
+    }
+    .cat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--amber);
+      box-shadow: 0 16px 40px rgba(232,133,74,0.15);
+    }
+    .cat-emoji {
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .cat-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--brown);
+      margin-bottom: 8px;
+    }
+    .cat-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 18px;
+    }
+    .prize-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--amber);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── PHASES SECTION ── */
+    .phases-section {
+      padding: 80px 24px;
+      background: var(--warm);
+    }
+
+    .phases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .phase-card {
+      border-radius: 24px;
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .phase-card.donate {
+      background: linear-gradient(135deg, var(--teal-dk) 0%, var(--teal) 100%);
+      color: #fff;
+    }
+    .phase-card.vote {
+      background: linear-gradient(135deg, #8b4513 0%, var(--amber) 100%);
+      color: #fff;
+    }
+    .phase-card.announce {
+      background: linear-gradient(135deg, #3a2a1e 0%, var(--brown) 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .phase-card::after {
+      content: attr(data-num);
+      position: absolute;
+      right: -10px; top: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem;
+      font-weight: 900;
+      opacity: 0.07;
+      color: #fff;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .phase-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      margin-bottom: 10px;
+    }
+    .phase-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .phase-dates {
+      font-size: 0.92rem;
+      opacity: 0.9;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .phase-desc {
+      font-size: 0.88rem;
+      opacity: 0.8;
+      line-height: 1.6;
+    }
+
+    /* ── HOW TO ENTER ── */
+    .how-section {
+      padding: 90px 24px 80px;
+      background: var(--cream);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin: 48px 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 24px;
+      background: var(--warm);
+      border-radius: 16px;
+      border: 1px solid rgba(92,61,46,0.08);
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-text strong {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--brown);
+      margin-bottom: 4px;
+    }
+    .step-text p {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .enter-cta-wrap {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--amber);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      padding: 16px 48px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 6px 24px rgba(232,133,74,0.4);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--amber-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(232,133,74,0.5);
+    }
+
+    /* ── ABOUT ── */
+    .about-section {
+      padding: 80px 24px 90px;
+      background: var(--teal-dk);
+      color: #fff;
+    }
+    .about-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    @media (max-width: 640px) {
+      .about-inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+    .about-section .section-eyebrow { color: #ffd4a8; }
+    .about-section .section-title   { color: #fff; margin-bottom: 16px; }
+    .about-body {
+      font-size: 0.98rem;
+      line-height: 1.75;
+      color: rgba(255,255,255,0.82);
+      margin-bottom: 28px;
+    }
+    .btn-outline {
+      display: inline-block;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      padding: 12px 30px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      margin-right: 12px;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+    .about-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .about-stat {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .about-stat-icon { font-size: 2rem; }
+    .about-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #ffd4a8;
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1e1410;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+    footer a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+    .footer-paws {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      opacity: 0.4;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="paw-bg">
+      <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+      <span>🐾</span><span>🐾</span><span>🐾</span><span>🐾</span>
+    </div>
+    <h1>Best <em>Photo</em><br>Contest</h1>
+    <p class="hero-sub">
+      Show off your furry best friend and help to save lives. All proceeds go towards supporting Healing Hands for Helping Paws.
+    </p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdzWui1RcsuuvtPiD0V1Z3_6iyzL7mORFGecFwvOt5axuiqzw/viewform" target="_blank" class="hero-cta">
+      🐶 Enter &amp; Donate Now
+    </a>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ── TIMELINE STRIP ── -->
+  <div class="timeline-strip">
+    <div class="timeline-inner">
+      <div class="tl-item">
+        <span class="tl-icon">💝</span>
+        <div>
+          <div class="tl-label">Phase 1 — Donation</div>
+          <div class="tl-date">June 1 – June 14</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-icon">🗳️</span>
+        <div>
+          <div class="tl-label">Phase 2 — Voting</div>
+          <div class="tl-date">June 15 – June 21</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <span class="tl-icon">🏆</span>
+        <div>
+          <div class="tl-label">Winners Announced</div>
+          <div class="tl-date">June 22nd</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONTEST SECTION ── -->
+  <section class="contest-section">
+    <div class="container">
+      <p class="section-eyebrow reveal">The Contest</p>
+      <h2 class="section-title reveal reveal-d1">Three Categories:</h2>
+      <p class="section-intro reveal reveal-d2">
+        Upload your best pet photo(s) in one (or more) of the three categories below. The photo with the most votes in each category wins a <strong>$25 PetSmart gift card</strong>. Every donation goes directly towards supporting stray and feral animals in Southern Ontario.
+      </p>
+
+      <div class="categories">
+        <div class="cat-card reveal">
+          <span class="cat-emoji">🐶🐱</span>
+          <div class="cat-name">Best Duo</div>
+        </div>
+        <div class="cat-card reveal reveal-d1">
+          <span class="cat-emoji">😂</span>
+          <div class="cat-name">Funniest Pet</div>
+        </div>
+        <div class="cat-card reveal reveal-d2">
+          <span class="cat-emoji">📸</span>
+          <div class="cat-name">Best Photogenic</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PHASES ── -->
+  <section class="phases-section">
+    <div class="container">
+      <p class="section-eyebrow reveal">How It Works</p>
+      <h2 class="section-title reveal reveal-d1">Contest Timeline</h2>
+
+      <div class="phases-grid">
+        <div class="phase-card donate reveal" data-num="1">
+          <div class="phase-title">Donation Phase</div>
+          <div class="phase-dates">
+            Est. June 1st at 12:01 am<br>through June 14th at 11:59 pm
+          </div>
+          <p class="phase-desc">Submit your pet's photo and make your donation to enter the contest. Details on how to make a donation are on the form.</p>
+        </div>
+
+        <div class="phase-card vote reveal reveal-d1" data-num="2">
+          <div class="phase-title">Voting Phase</div>
+          <div class="phase-dates">
+            Est. June 15th at 12:01 am<br>through June 21st at 11:59 pm
+          </div>
+          <p class="phase-desc">Public votes are collected and will be displayed on this website.</p>
+        </div>
+
+        <div class="phase-card announce reveal reveal-d2" data-num="🏆">
+          <div class="phase-title">Winners Announced</div>
+          <div class="phase-dates">Est. June 22nd</div>
+          <p class="phase-desc">Only one winner per category will be announced. Each winner will receive a $25 PetSmart gift card.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-inner">
+        <div>
+          <p class="section-eyebrow reveal">About the Charity</p>
+          <h2 class="section-title reveal reveal-d1">Healing Hands for Helping Paws</h2>
+          <p class="about-body reveal reveal-d2">
+            Based in Southern Ontario, Healing Hands for Helping Paws is a dedicated dog rescue organization on a mission to find forever homes for amazing dogs in need. For more information, go to their website linked below.
+          </p>
+          <div class="reveal reveal-d2">
+            <a href="https://www.healinghandsforhelpingpaws.com/" target="_blank" class="btn-outline">Visit Website</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
